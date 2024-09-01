@@ -14,5 +14,8 @@ for i in l:
         sum += int(i)
     else:
         s += i
+        
+if sum > 0:
+    s += str(sum)
 
-print(s + str(sum))
+print(s)
