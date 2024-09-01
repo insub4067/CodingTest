@@ -24,11 +24,15 @@ def dfs(x, y, count):
     # 다음 노드 탐색
     for dx, dy in directions:
         nx, ny = x + dx, y + dy
-
+        # 범위 밖이면 통과
+        if ny < 0 or ny >= n or nx < 0 or nx >= m:
+            continue
+        # 이미 방문했으면 통과
         if visited[ny][nx]:
             continue
-        # 범위안이고, 방문하지 않았고, 장애물이 없다면 다음으로 진행
-        if 0 <= nx < m and 0 <= ny < n and not visited[ny][nx] and graph[ny][nx] == 1:
-            dfs(nx, ny, count + 1)
+        # 장애물이면 통과
+        if graph[ny][nx] == 0:
+            continue
+        dfs(nx, ny, count + 1)
             
 dfs(0, 0, 1)
