@@ -126,6 +126,8 @@ dq = deque(l) # deque([1, 2, 3, 4])
 dq.append(5) # deque([1, 2, 3, 4, 5])
 dq.appendleft(6) # deque([6, 1, 2, 3, 4, 5])
 first = dq.popleft() # 6
+last = dq.pop() # 5
+print(dq) # deque([1, 2, 3, 4])
 ```
 
 ## 📚heapq
