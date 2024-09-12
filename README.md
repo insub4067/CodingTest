@@ -42,7 +42,7 @@ answer = 0
 def dfs(x, y, farm, visited):
     visited[y][x] = True
     
-    for dx, dy in direction:
+    for dy, dx in direction:
         nx, ny = dx + x, dy + y
         
         if 0 <= nx < m and 0 <= ny < n:
@@ -82,7 +82,7 @@ def dfs(x, y):
 
     while stack:
         cx, cy = stack.pop()
-        for dx, dy in direction:
+        for dy, dx in direction:
             nx, ny = dx + cx, dy + cy
             if 0 <= nx < m and 0 <= ny < n:
                 if not visited[ny][nx] and farm[ny][nx] == 1:
