@@ -1,7 +1,11 @@
 # 코테 공부정리 (Python)
 
-1. [DFS](#DFS)
-2. [BFS](#BFS)
+1. DFS
+2. BFS
+3. DFS vs BFS
+4. 이분매칭
+5. deque
+6. heapq
 
 ## 📚DFS <a name="DFS"></a>
 ### ✔️ 설명
@@ -23,7 +27,7 @@
     - 재귀 호출 없이도 구현 가능하며, 메모리 관리에 있어서 좀 더 효율적일 수 있습니다.
     - 코드가 조금 더 복잡해질 수 있지만, 재귀를 피할 수 있는 장점이 있습니다.
 
-### ✔️ 활용 예시 (재귀) [🔗](https://www.acmicpc.net/problem/1012)
+### ✔️ 활용 예시 (재귀) [문제: 유기농 배추](https://www.acmicpc.net/problem/1012)
 ```python
 direction = [(0, -1), (0, 1), (-1, 0), (1, 0)] # 좌우 상하
 m, n, k = 10, 8, 17 # 농장의 (가로, 세로, 배추 갯수)
@@ -60,7 +64,7 @@ for y in range(n):
 print(answer) # 5
 ```
 
-### ✔️ 활용 예시 (스택) [🔗](https://www.acmicpc.net/problem/1012)
+### ✔️ 활용 예시 (스택) [문제: 유기농 배추](https://www.acmicpc.net/problem/1012)
 ```python
 direction = [(0, -1), (0, 1), (-1, 0), (1, 0)] # 좌우 상하
 m, n, k = 10, 8, 17 # 농장의 (가로, 세로, 배추 갯수)
@@ -100,9 +104,7 @@ for y in range(n):
 print(answer) # 5
 ```
 
-----
-
-## 📚BFS <a name="BFS"></a>
+## 📚BFS 
 ### ✔️ 설명
 **BFS**(Breadth-First Search)는 그래프 또는 트리에서의 탐색 알고리즘 중 하나로, 너비 우선 탐색 방법을 사용합니다. BFS는 먼저 시작 노드에서 가까운 노드를 탐색한 후 점차 멀리 있는 노드로 이동합니다. 이를 위해 큐(Queue)를 사용하여 현재 탐색 중인 노드의 이웃을 차례대로 저장하고 탐색합니다.
 
@@ -172,6 +174,56 @@ print("BFS 탐색 결과:", result)
     - 계층 탐색: 한 레벨씩 순차적으로 탐색해야 하는 문제에 유용합니다. 예를 들어, 소셜 네트워크에서 친구 관계를 탐색할 때 같은 레벨의 사람들부터 차례로 탐색하는 것이 유리합니다.
     - 레벨 탐색: 트리의 각 레벨에서 노드를 순차적으로 탐색하는 경우 BFS가 적합합니다.
 
+## 📚이분매칭
+### ✔️ 설명
+이분 그래프에서 두 개의 독립된 집합 사이에서 가능한 최대 매칭을 찾는 문제입니다. 이분 그래프는 두 개의 집합으로 정점들이 나뉘어 있으며, 각 간선은 서로 다른 집합의 정점 사이에서만 연결됩니다.
+
+### ✔️ 특징
+- 매칭(Matching): 이분 매칭에서 "매칭"은 간선의 부분집합으로, 각 정점이 최대 하나의 간선에만 포함되도록 선택됩니다. 즉, 각 정점이 한 번만 매칭에 참여할 수 있습니다.
+- 최대 매칭(Maximum Matching): 가능한 한 최대한 많은 간선을 선택하여 매칭을 구성하는 것을 말합니다. 최대 매칭을 구하는 것이 이분 매칭 문제의 핵심입니다.
+- DFS와 BFS의 활용: 이분 매칭을 해결하는 일반적인 방식은 깊이 우선 탐색(DFS)을 사용해 교환 경로를 탐색하는 것입니다. 경우에 따라 BFS(너비 우선 탐색)도 보조적으로 사용됩니다.
+  
+### ✔️ 예시
+- 구인/구직 매칭: 두 집합 중 하나를 구직자, 다른 하나를 일자리로 설정하여 각각의 구직자와 일자리가 연결된 경우, 가능한 최적의 매칭을 찾을 수 있습니다.
+- 작업 할당 문제: 작업을 수행할 수 있는 기계나 사람과 각 작업 간의 최적 할당을 찾는 데 사용됩니다.
+- 대학 입시, 파티 구성: 학생-전공 매칭, 파티나 그룹을 구성하는 등의 문제에도 이분 매칭 알고리즘이 사용됩니다.
+
+### ✔️ 예시 [열혈강호](https://www.acmicpc.net/problem/11375)
+```python
+import sys
+
+sys.setrecursionlimit(100000)
+
+# 작업자, 작업
+N, M = map(int, input().split()) 
+
+tasks = {}
+assigned = [None] * (M + 1) # 매칭 상태를 기록
+
+for i in range(1, N + 1):
+    line = list(map(int, input().split()))
+    tasks[i] = line[1:]
+
+# 매칭을 수행
+def assign(staff, visited): 
+    for task in tasks[staff]:
+        if visited[task]:  
+            continue
+        visited[task] = True
+        # 작업자가 할당되어 있지 않거나 이미 할당되어있다면 해당 작업자가 다른 작업으로 양보할 수 있는지 확인한다.
+        if assigned[task] is None or assign(assigned[task], visited): 
+            assigned[task] = staff 
+            return True
+    return False
+
+for i in range(1, N + 1):
+    # 작업자를 순화할때 마다 작업 visited를 초기화한다.
+    visited = [False] * (M + 1) 
+    assign(i, visited)
+
+print(sum(1 for a in assigned if a != None))
+```
+
 ## 📚deque
 ### ✔️ 설명
 **deque**는 Python의 collections 모듈에서 제공하는 양방향 큐로, 리스트와 유사하지만 양쪽 끝에서 빠르고 효율적으로 요소를 추가하거나 제거할 수 있는 자료 구조입니다. deque는 Double-Ended Queue의 약자로, 큐의 양쪽 끝에서 요소를 추가하거나 제거하는 작업을 O(1) 시간 안에 수행할 수 있어, 리스트보다 효율적입니다.
@@ -195,11 +247,6 @@ first = dq.popleft() # 6
 last = dq.pop() # 5
 print(dq) # deque([1, 2, 3, 4])
 ```
-
-## 📚이분매칭(bipartite matching)
-### ✔️ 설명
-### ✔️ 설명
-### ✔️ 설명
 
 ## 📚heapq
 ### ✔️ 설명
