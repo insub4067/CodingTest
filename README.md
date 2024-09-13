@@ -118,37 +118,31 @@ print(answer) # 5
 3. 방문한 노드에 연결된 인접 노드를 모두 큐에 삽입합니다.
 4. 큐가 빌 때까지 이 과정을 반복합니다.
 
-### ✔️ 활용 예시
+### ✔️ 활용 예시 [문제: 숨바꼭질](https://www.acmicpc.net/problem/1697)
 ```python
 from collections import deque
 
-# 그래프를 인접 리스트 방식으로 표현
-graph = {
-    'A': ['B', 'C'],
-    'B': ['A', 'D', 'E'],
-    'C': ['A', 'F'],
-    'D': ['B'],
-    'E': ['B', 'F'],
-    'F': ['C', 'E']
-}
+ # 현재 위치, 목표 도달 위치
+N, K = 5, 17
+visited = [False] * 100001  
+visited[N] = True  
 
-def bfs(graph, start):
-    visited = []  # 방문한 노드를 저장할 리스트
-    queue = deque([start])  # 큐에 시작 노드를 삽입
+def bfs():
+    q = deque([(N, 0)])
+    while q:
+        n, sec = q.popleft()
+        if n == K:
+            # 목표 도달시 출력 후 종료
+            print(sec) 
+            break
+        # 현재 위치에서 (-1, +1, *2) 3가지 가능성이 있는 케이스를 계산한다.
+        for next in (n - 1, n + 1, n * 2):
+            # 방문처리와 재방문 방지
+            if 0 <= next <= 100000 and not visited[next]:
+                visited[next] = True  
+                q.append((next, sec + 1)) 
 
-    while queue:
-        node = queue.popleft()  # 큐에서 노드를 꺼냄
-        if node not in visited:
-            visited.append(node)  
-            # 현재 노드의 인접 노드를 큐에 추가 (방문하지 않은 노드들)
-            for neighbor in graph[node]:
-                if neighbor not in visited:
-                    queue.append(neighbor)
-
-    return visited
-
-result = bfs(graph, 'A')
-print("BFS 탐색 결과:", result)
+bfs()
 ```
 
 ## 📚DFS vs BFS
