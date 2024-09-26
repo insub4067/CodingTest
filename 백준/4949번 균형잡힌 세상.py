@@ -10,7 +10,7 @@ while True:
     balanced = True
     
     for char in line:
-        if char == "(" or char == "[":
+        if char in ["(", "["]:
             stack.append(char)
         elif char == ")":
             if stack and stack[-1] == "(":
