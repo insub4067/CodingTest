@@ -1,6 +1,8 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/178870?language=python3
 
+# ------------------------------------
 # 1번째 시도 (시간 초과)
+# 알고리즘: 브루트 포스 O(n^2)
 # 채점 결과
 # 정확성: 47.1
 # 합계: 47.1 / 100.0
@@ -19,10 +21,12 @@ def solution(sequence, k):
                     answer = [i, ii]
     return answer
 
-
-
 # ------------------------------------
 # 2번째 시도(통과)
+# 알고리즘: 슬라이등 윈도우 O(n)
+# 채점 결과
+# 정확성: 100.0
+# 합계: 100.0 / 100.0
 
 def solution(sequence, k):
     start = 0
@@ -31,7 +35,7 @@ def solution(sequence, k):
     
     for end in range(len(sequence)):
         current_sum += sequence[end] 
-        
+
         while current_sum > k and start <= end:
             current_sum -= sequence[start]
             start += 1
