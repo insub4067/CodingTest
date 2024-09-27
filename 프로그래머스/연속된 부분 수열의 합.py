@@ -1,3 +1,8 @@
+# https://school.programmers.co.kr/learn/courses/30/lessons/178870?language=python3
+# 채점 결과
+# 정확성: 47.1
+# 합계: 47.1 / 100.0
+
 def solution(sequence, k):
     answer = []
     for i in range(len(sequence)):
