@@ -23,7 +23,7 @@ def solution(sequence, k):
 
 # ------------------------------------
 # 2번째 시도(통과)
-# 알고리즘: 슬라이등 윈도우 O(n)
+# 알고리즘: 투 포인터 O(n)
 # 채점 결과
 # 정확성: 100.0
 # 합계: 100.0 / 100.0
@@ -42,6 +42,9 @@ def solution(sequence, k):
         
         if current_sum == k:
             if not answer or (end - start) < (answer[1] - answer[0]):
+                print(answer, start, end)
                 answer = [start, end]
     
     return answer
+
+print(solution(	[1, 1, 1, 2, 3, 4, 5], 5)) # expect [6, 6]
