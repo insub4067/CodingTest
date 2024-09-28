@@ -19,7 +19,7 @@ def solution(numbers):
     return answer
 
 # ---------------------
-# 2차 시도: 
+# 2차 시도: 통과
 # 알고리즘: 'Next Greater Element' O(n)
 
 def solution(numbers):
@@ -30,7 +30,6 @@ def solution(numbers):
         while stack and numbers[stack[-1]] < num:
             idx = stack.pop()
             answer[idx] = num
-            print(i, num, idx, answer)
         stack.append(i)  
 
     return answer
