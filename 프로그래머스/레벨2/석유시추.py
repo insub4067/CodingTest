@@ -50,6 +50,10 @@ def solution(land):
 
 # ---------------------------------
 # 2차 시도
+# 채점 결과
+# 정확성: 60.0
+# 효율성: 40.0
+# 합계: 100.0 / 100.0
 
 from collections import deque
 directions = [(0, -1), (0, 1), (-1, 0), (1, 0)]
@@ -80,7 +84,6 @@ def solution(land):
 
         for x in xs:
             totals[x] += count
-            print(y, x, count)
 
     for y in range(n):
         for x in range(m):
@@ -89,6 +92,12 @@ def solution(land):
     
     return max(totals)
 
+# ---------------------------------
+# 개선점:
+# 중복 계산 제거: 석유 덩어리의 크기를 중복해서 계산하지 않으므로 불필요한 계산이 없어집니다.
+# 효율성 개선: visited 배열을 전체 탐색 동안 한 번만 유지하고, 석유 덩어리를 발견할 때마다 해당 덩어리를 차지하는 열을 모두 기록하여, 중복 계산 없이 덩어리 크기를 한 번에 반영합니다.
+# 효율성 테스트 통과: 중복 연산이 줄어들면서 시간 복잡도가 개선되어 효율성 테스트를 통과합니다.
+
 input = [
     [0, 0, 0, 1, 1, 1, 0, 0], 
     [0, 0, 0, 0, 1, 1, 0, 0], 
@@ -96,4 +105,4 @@ input = [
     [1, 1, 1, 0, 0, 0, 0, 0], 
     [1, 1, 1, 0, 0, 0, 1, 1]
 ]
-print(solution(input))
+print(solution(input)) # exepct: 9
