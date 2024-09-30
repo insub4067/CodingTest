@@ -53,9 +53,6 @@ def solution(tickets):
     for start, end in tickets:
         routes[start].append(end)
 
-    # for k in routes.keys():
-    #     routes[k].sort(reverse=True)
-
     stack = ["ICN"]
     while stack:
         top = stack[-1]
@@ -63,7 +60,7 @@ def solution(tickets):
             answer.append(stack.pop())   
         else:
             stack.append(routes[top].pop())
-
+    
     return answer[::-1]
 
 # expect ["ICN", "ATL", "ICN", "SFO", "ATL", "SFO"]
