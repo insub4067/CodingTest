@@ -19,9 +19,8 @@ def solution(m, n, puddles):
     # 학교 위치
     matrix[n - 1][m - 1] = 1 
     # 웅덩이 위치 
-    for p in puddles: 
-        x, y = p[0] - 1, p[1] - 1
-        matrix[y][x] = -1
+    for x, y in puddles: 
+        matrix[y - 1][x - 1] = -1
 
     q = deque()
     q.append((0, 0, 0))
@@ -39,6 +38,8 @@ def solution(m, n, puddles):
     answer = totals.count(minimum)
 
     return answer % 1000000007
+
+print(solution(4, 3, [[2, 2]]))
 
 # ---------------------
 # 2차 시도
@@ -66,5 +67,3 @@ def solution(m, n, puddles):
             dp[y][x] += (up + left) % 1000000007
             
     return(dp[n][m])
-
-print(solution(4, 3, [[2, 2]]))
