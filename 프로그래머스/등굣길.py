@@ -50,20 +50,23 @@ print(solution(4, 3, [[2, 2]]))
 # 합계: 100.0 / 100.0
 
 def solution(m, n, puddles):
-    dp = [[0] * (m + 1) for _ in range(n + 1)] # dp 테이블 초기화
-    dp[1][1] = 1
-
-    # 웅덩이
-    for x, y in puddles:
-        dp[y][x] = -1
-
+    MOD = 1000000007
+    dp = [[0] * (m + 1) for _ in range(n + 1)]
+    dp[1][1] = 1  # 시작점
+    
+    # 웅덩이 위치 설정
+    puddle_set = {(y, x) for x, y in puddles}  
+    
     for y in range(1, n + 1):
         for x in range(1, m + 1):
-            if dp[y][x] == -1: 
-                dp[y][x] = 0 
-                continue 
-            up = dp[y - 1][x]
-            left = dp[y][x - 1]
-            dp[y][x] += (up + left) % 1000000007
-            
-    return(dp[n][m])
+            # 시작점 검사
+            if (y, x) == (1, 1):
+                continue  
+            # 웅덩이 검사
+            if (y, x) in puddle_set:
+                dp[y][x] = 0  
+            # 위쪽과 왼쪽에서 오는 경로의 수 합산
+            else:
+                dp[y][x] = (dp[y - 1][x] + dp[y][x - 1]) % MOD  
+    
+    return dp[n][m]
