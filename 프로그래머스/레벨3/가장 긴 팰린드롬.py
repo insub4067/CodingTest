@@ -33,6 +33,18 @@ def solution(s):
 # ---------------------------
 # 2차 시도
 
+def solution(s):
+
+    answer = 0
+    for i in range(len(s)):
+        for j in range(i + 1, len(s) + 1):
+            substring = s[i:j]
+            isEqual = substring == substring[::-1]
+            if isEqual:
+                answer = max(answer, j - i)
+    
+    return answer
+
 
 
 # expect: 7
