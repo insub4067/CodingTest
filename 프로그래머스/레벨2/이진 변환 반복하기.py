@@ -16,6 +16,7 @@ def solution(s):
 
     answer.append(stage)
     answer.append(zeros)
+
     return answer
 
 input = "110010101001"
