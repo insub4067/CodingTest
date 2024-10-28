@@ -5,7 +5,7 @@ from collections import deque
 
 direction = [(-1, 0), (1, 0), (0, 1), (0, -1)]
 N, M = map(int, input().split())
-graph = [list(map(int, input().split())) for _ in range(N)]
+graph = [list(map(int, input())) for _ in range(N)]
 distance = [[0] * M for _ in range(N)]
 
 dq = deque([(0, 0)])
