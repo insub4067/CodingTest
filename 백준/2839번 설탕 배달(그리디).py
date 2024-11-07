@@ -1,9 +1,6 @@
 # 설탕 배달
 # https://www.acmicpc.net/problem/2839
 
-# N = 18
-# expect: 4
-
 N = int(input())
 answer = 0
 
