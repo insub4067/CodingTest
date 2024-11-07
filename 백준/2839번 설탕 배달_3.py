@@ -1,7 +1,7 @@
 # https://www.acmicpc.net/problem/2839
 # 2839번: 설탕 배달
 
-N = 6
+N = int(input())
 answer = 0
 
 while N > 0 :
