@@ -1,7 +1,6 @@
 import heapq
 
 def solution(operations):
-    answer = []
     stack = []
 
     for o in operations:
@@ -19,8 +18,6 @@ def solution(operations):
 
     stack.sort()
     if stack:
-        answer = [stack[-1], stack[0]]
+        return [stack[-1], stack[0]]
     else:
-        answer = [0, 0]
-    
-    return answer
+        return [0, 0]
